@@ -1,20 +1,15 @@
 Assignment name  : microshell
 Expected files   : *.c *.h
+--------------------------------------------------------------------------------------
 Allowed functions: 
-malloc, free
-write
-close
-fork
-waitpid
-signal
-kill
-exit
-chdir
-execve
-dup, dup2
-pipe
-strcmp
-strncmp
+	malloc, free
+	strcmp, strncmp
+	write
+	chdir
+	fork, waitpid, execve
+	pipe, close, dup, dup2
+	signal, kill
+	exit 
 --------------------------------------------------------------------------------------
 
 Write a program that will behave like executing a shell command

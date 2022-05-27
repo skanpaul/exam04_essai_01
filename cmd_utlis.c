@@ -1,22 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   cmd_utlis.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ski <ski@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 11:10:22 by ski               #+#    #+#             */
-/*   Updated: 2022/05/27 14:12:17 by ski              ###   ########.fr       */
+/*   Created: 2022/05/27 14:47:47 by ski               #+#    #+#             */
+/*   Updated: 2022/05/27 14:59:41 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "microshell.h"
 
 /* ************************************************************************** */
-int print_error(char *msg_error)
+char *extract_cmd(char *path_and_cmd)
 {
-	write(STDERR_FILENO, msg_error, ft_strlen(msg_error));
-	return (1);
+	int len;
+	int i;
+	char *cmd;
+
+	cmd = NULL;	
+	len = ft_strlen(path_and_cmd);
+
+	if (path_and_cmd[len] == '/')
+		return NULL;	
+
+	i = len;
+	while (path_and_cmd[i] != '/')
+		i--;
+
+	cmd = ft_strdup(&path_and_cmd[i + 1]);
+
+	return cmd;	
 }
 
+/* ************************************************************************** */
+void add_cmd_to_args(char **cmd_and_args, char *new_arg)
+{
+
+
+	
+}
 /* ************************************************************************** */
