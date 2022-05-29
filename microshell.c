@@ -6,7 +6,7 @@
 /*   By: ski <ski@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 11:09:07 by ski               #+#    #+#             */
-/*   Updated: 2022/05/29 10:54:48 by ski              ###   ########.fr       */
+/*   Updated: 2022/05/29 11:41:15 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,18 @@
 #include "microshell.h"
 
 /* ************************************************************************** */
-static void print_err_execve(t_param *p);
-static void print_start_child(char **array);
-static void print_end_parent(void);
-
-/* ************************************************************************** */
 int main (int argc, char **argv, char **envp)
 {
-
 	t_param	p;
 
 	if (argc < 2)
 		return (print_error(MSG_ERR_ARGC));
 		
-	initialisation(&p, argc, argv, envp);
+	initialisation(&p, argc, argv, envp);	
 	
-	run_segment(&p);
+	p.seg_start = 1;
+	p.seg_end = get_seg_end(&p);	
+	run_segment(&p);	
 	
 	clean_program(&p);
 	
@@ -42,15 +38,7 @@ int main (int argc, char **argv, char **envp)
 }
 
 /* ************************************************************************** */
-static void print_err_execve(t_param *p)
-{	
-	print_error(MSG_ERR_EXECVE);
-	print_error(p->path);
-	print_error("\n");
-}
-
-/* ************************************************************************** */
-static void print_start_child(char **array)
+void print_start_child(char **array)
 {	
 	print_error("\n");
 	print_error("---------------------------------------------\n");
@@ -60,7 +48,7 @@ static void print_start_child(char **array)
 }
 
 /* ************************************************************************** */
-static void print_end_parent(void)
+void print_end_parent(void)
 {	
 	print_error("\n");
 	print_error("---------------------------------------------\n");

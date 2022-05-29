@@ -23,23 +23,20 @@
 # include "stdio.h"
 # include "stdlib.h"
 # include "stdbool.h"
+# include "string.h"
 /* ************************************************************************** */
 # include <sys/types.h>
 # include <sys/wait.h> 
 /* ************************************************************************** */
-typedef struct s_ep
-{
-	char *path;
-	char **array;
-	char **envp;
-}	t_ep;
-
 typedef struct s_param
 {
 	// ---------------------
 	int		argc;
 	char	**argv;
 	char	**envp;
+	// ---------------------
+	int		seg_start;
+	int		seg_end;
 	// ---------------------
 	char	*path;
 	char	*cmd;
@@ -49,8 +46,12 @@ typedef struct s_param
 
 /* ************************************************************************** */
 void	initialisation(t_param *p, int argc, char **argv, char **envp);
-void	run_segment(t_param *p);
 void	clean_program(t_param *p);
+/* ************************************************************************** */
+int		get_seg_end(t_param *p);
+void	build_array(t_param *p);
+int		run_segment(t_param *p);
+bool	does_word_match(char *src, char *hard_str);
 /* ************************************************************************** */
 bool 	is_fork_error(int fork_code);
 bool 	is_fork_child(int fork_code);
@@ -67,6 +68,10 @@ char	**add_string_to_array(char **array, char *new_str);
 int		get_size_array(char **array);
 void	free_array(char ***array);
 void	print_array(char **array);
+/* ************************************************************************** */
+void	print_err_execve(t_param *p);
+void	print_start_child(char **array);
+void	print_end_parent(void);
 /* ************************************************************************** */
 #endif
 

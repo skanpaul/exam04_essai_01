@@ -6,7 +6,7 @@
 /*   By: ski <ski@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 11:10:22 by ski               #+#    #+#             */
-/*   Updated: 2022/05/29 10:20:09 by ski              ###   ########.fr       */
+/*   Updated: 2022/05/29 11:02:43 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@ int print_error(char *msg_error)
 {
 	write(STDERR_FILENO, msg_error, ft_strlen(msg_error));
 	return (1);
+}
+
+/* ************************************************************************** */
+void print_err_execve(t_param *p)
+{	
+	print_error(MSG_ERR_EXECVE);
+	print_error(p->path);
+	print_error("\n");
 }
 
 /* ************************************************************************** */
