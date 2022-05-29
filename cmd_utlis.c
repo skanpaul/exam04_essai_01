@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utlis.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ski <ski@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: sorakann <sorakann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:47:47 by ski               #+#    #+#             */
-/*   Updated: 2022/05/27 15:11:42 by ski              ###   ########.fr       */
+/*   Updated: 2022/05/29 07:34:22 by sorakann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,54 @@ char *extract_cmd(char *path_and_cmd)
 
 /* ************************************************************************** */
 // [ new_arg ] HAS TO BE malloc before entering this function 
-void add_cmd_to_args(char **cmd_and_args, char *new_arg)
+void add_cmd_to_args(char **array, char *new_arg)
 {
-	if (!cmd_and_args)
+	int		i;
+	int		size_array;
+	char	**new_array;
+	
+	new_array = NULL;
+	if (!array)
 	{
-		cmd_and_args = (char **)malloc(sizeof(char *) * 2);
-		cmd_and_args[0] = new_arg;
-		cmd_and_args[1] = NULL;
+		array = (char **)malloc(sizeof(char *) * 2);
+		array[0] = new_arg;
+		array[1] = NULL;
 	}
 	else
 	{
+		size_array = get_size_array(array);
+		new_array = (char **)malloc(sizeof(char *) * (size_array + 2));
 		
+		new_array[size_array] = new_arg;
+		new_array[size_array + 1] = NULL;
+		
+
+		//free old array
 	}
 }
 /* ************************************************************************** */
-int get_size_array(char **cmd_and_args)
+void copy_array(char **src_array, char **dst_array)
+{
+	int i;
+	
+	i = 0;
+	while (src_array[i])
+	{
+		dst_array[i] = src_array[i];
+		i++;
+	}
+	dst_array[i] = NULL;
+}
+/* ************************************************************************** */
+int get_size_array(char **array)
 {
 	int i;
 
 	i = 0;
-	if (!cmd_and_args)
+	if (!array)
 		return(0);
 	
-	while (cmd_and_args[i])
+	while (array[i])
 		i++;
 	return (i);
 }
