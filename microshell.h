@@ -32,16 +32,19 @@ typedef struct s_param
 	char	**argv;
 	char	**envp;
 	// ---------------------
-	int		fork_code;
-	int		pid_child;
-	int		status_child;
+	// int		fork_code;
+	// int		pid_child;
+	// int		status_child;
 	// ---------------------
-	char	*path_and_cmd;
+	char	*path;
 	char	*cmd;
-	char	**cmd_and_args;    
+	char	**array;    
 	// ---------------------
 }   t_param;
 
+/* ************************************************************************** */
+void	initialisation(t_param *p, int argc, char **argv, char **envp);
+void	clean_program(t_param *p);
 /* ************************************************************************** */
 bool 	is_fork_error(int fork_code);
 bool 	is_fork_child(int fork_code);
@@ -53,9 +56,8 @@ void	ft_free(char **str);
 int		ft_strlen(char *str);
 char	*ft_strdup(char *str);
 /* ************************************************************************** */
-char	*extract_cmd(char *path_and_cmd);
-void	add_cmd_to_args(char **array, char *new_arg);
-void	copy_array(char **src_array, char **dst_array);
+char	*extract_cmd(char *path);
+char	**add_cmd_to_array(char **array, char *new_arg);
 int		get_size_array(char **array);
 void	free_array(char ***array);
 /* ************************************************************************** */

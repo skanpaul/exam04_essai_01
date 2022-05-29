@@ -6,57 +6,52 @@
 /*   By: ski <ski@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 11:23:09 by ski               #+#    #+#             */
-/*   Updated: 2022/05/27 14:48:07 by ski              ###   ########.fr       */
+/*   Updated: 2022/05/29 09:42:04 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "microshell.h"
 
 /* ************************************************************************** */
-int ft_strlen(char *str)
+void initialisation(t_param *p, int argc, char **argv, char **envp)
 {
+	// ---------------------
+	p->argc = argc;
+	p->argv = argv;
+	p->envp = envp;
+	// ---------------------
+	p->path = NULL;
+	p->cmd = NULL;
+	p->array = NULL;
+}
+
+/* ************************************************************************** */
+void clean_program(t_param *p)
+{
+	(void)p;
+	free_array(&p->array);
+}
+
+/* ************************************************************************** */
+char *extract_cmd(char *path)
+{
+	int len;
 	int i;
+	char *cmd;
 
-	if(!str)
-		return(0);
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);	
+	cmd = NULL;	
+	len = ft_strlen(path);
+
+	if (path[len] == '/')
+		return NULL;	
+
+	i = len;
+	while (path[i] != '/')
+		i--;
+
+	cmd = ft_strdup(&path[i + 1]);
+
+	return cmd;	
 }
 
-// /* ************************************************************************** */
-void ft_free(char **str)
-{
-	if (*str)
-		free(*str);
-	*str = NULL;	
-}
-
-// /* ************************************************************************** */
-char *ft_strdup(char *str)
-{
-	int		i;
-	int		len;
-	char	*new_string;
-	
-	if(!str)
-		return NULL;
-	len = ft_strlen(str);
-
-	new_string = (char *)malloc(sizeof(char) * (len + 1));
-
-	if (!new_string)
-		return NULL;
-		
-	i = 0;
-	while (str[i])
-	{
-		new_string[i] = str[i];
-		i++;
-	}
-	new_string[i] = '\0';	
-	return new_string;
-}
-
-// /* ************************************************************************** */
+/* ************************************************************************** */
