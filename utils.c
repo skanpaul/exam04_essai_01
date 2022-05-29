@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ski <ski@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: sorakann <sorakann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 11:23:09 by ski               #+#    #+#             */
-/*   Updated: 2022/05/29 14:15:06 by ski              ###   ########.fr       */
+/*   Updated: 2022/05/29 21:31:37 by sorakann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char *extract_cmd(char *path)
 		return NULL;	
 
 	i = len;
-	while (path[i] != '/' && i != 0)
+	while (i >= 0 && path[i] != '/')
 		i--;
 
 	cmd = ft_strdup(&path[i + 1]);

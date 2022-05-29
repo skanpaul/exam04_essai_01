@@ -6,7 +6,7 @@
 /*   By: sorakann <sorakann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 11:09:07 by ski               #+#    #+#             */
-/*   Updated: 2022/05/29 20:38:34 by sorakann         ###   ########.fr       */
+/*   Updated: 2022/05/29 21:23:27 by sorakann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int main (int argc, char **argv, char **envp)
 	while (p.seg_start < p.argc)
 		run_segment(&p);
 
-	// close pipe
-	
 	clean_program(&p);
 	return(0);
 }
@@ -64,26 +62,29 @@ void initialisation(t_param *p, int argc, char **argv, char **envp)
 void clean_program(t_param *p)
 {
 	free_array(&p->array);
+	dup2(p->stdin_origin, STDIN_FILENO);
+	dup2(p->stdout_origin, STDOUT_FILENO);
+	exit(EXIT_FAILURE);	
 }
 
 /* ************************************************************************** */
-void print_start_child(char **array)
-{	
-	print_error("\n");
-	print_error("---------------------------------------------\n");
-	print_error("Start-CHILD\n");
-	print_array(array);
-	print_error("---------------------------------------------\n");
-}
+// void print_start_child(char **array)
+// {	
+// 	print_error("\n");
+// 	print_error("---------------------------------------------\n");
+// 	print_error("Start-CHILD\n");
+// 	print_array(array);
+// 	print_error("---------------------------------------------\n");
+// }
 
-/* ************************************************************************** */
-void print_end_parent(void)
-{	
-	print_error("\n");
-	print_error("---------------------------------------------\n");
-	print_error("End-PARENT\n");
-	print_error("---------------------------------------------\n");
-	print_error("\n");
-}
+// /* ************************************************************************** */
+// void print_end_parent(void)
+// {	
+// 	print_error("\n");
+// 	print_error("---------------------------------------------\n");
+// 	print_error("End-PARENT\n");
+// 	print_error("---------------------------------------------\n");
+// 	print_error("\n");
+// }
 
-/* ************************************************************************** */
+// /* ************************************************************************** */

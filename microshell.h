@@ -65,6 +65,10 @@ bool 	is_fork_error(int fork_code);
 bool 	is_fork_child(int fork_code);
 bool 	is_fork_parent(int fork_code);
 /* ************************************************************************** */
+void	create_pipe(t_param *p);
+void	set_redirection_out(t_param *p);
+void	set_redirection_in(t_param *p);
+/* ************************************************************************** */
 void	ft_free(char **str);
 int		ft_strlen(char *str);
 char	*ft_strdup(char *str);
