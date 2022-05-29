@@ -27,9 +27,16 @@
 /* ************************************************************************** */
 # include <sys/types.h>
 # include <sys/wait.h> 
+# include <sys/errno.h>
 /* ************************************************************************** */
 typedef struct s_param
 {
+	int		stdin_origin;
+	int		stdout_origin;
+	int		stderr_origin;
+	int		fd_pipe[2];
+	int		w_pipe;
+	int		r_pipe;
 	// ---------------------
 	int		argc;
 	char	**argv;
@@ -48,7 +55,8 @@ typedef struct s_param
 void	initialisation(t_param *p, int argc, char **argv, char **envp);
 void	clean_program(t_param *p);
 /* ************************************************************************** */
-int		get_seg_end(t_param *p);
+void	set_next_seg_start(t_param *p);
+void	set_next_seg_end(t_param *p);
 void	build_array(t_param *p);
 int		run_segment(t_param *p);
 bool	does_word_match(char *src, char *hard_str);
@@ -56,8 +64,6 @@ bool	does_word_match(char *src, char *hard_str);
 bool 	is_fork_error(int fork_code);
 bool 	is_fork_child(int fork_code);
 bool 	is_fork_parent(int fork_code);
-/* ************************************************************************** */
-int		print_error(char *msg_error);
 /* ************************************************************************** */
 void	ft_free(char **str);
 int		ft_strlen(char *str);
@@ -69,7 +75,11 @@ int		get_size_array(char **array);
 void	free_array(char ***array);
 void	print_array(char **array);
 /* ************************************************************************** */
+int		print_error(char *msg_error);
 void	print_err_execve(t_param *p);
+void	print_err_chdir(t_param *p);
+int		exit_syscal_err(t_param *p, int err_code);
+/* ************************************************************************** */
 void	print_start_child(char **array);
 void	print_end_parent(void);
 /* ************************************************************************** */

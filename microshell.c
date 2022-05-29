@@ -6,7 +6,7 @@
 /*   By: ski <ski@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 11:09:07 by ski               #+#    #+#             */
-/*   Updated: 2022/05/29 11:41:15 by ski              ###   ########.fr       */
+/*   Updated: 2022/05/29 16:25:58 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,53 @@
 #include "microshell.h"
 
 /* ************************************************************************** */
+
+/* ************************************************************************** */
 int main (int argc, char **argv, char **envp)
 {
 	t_param	p;
 
 	if (argc < 2)
-		return (print_error(MSG_ERR_ARGC));
-		
-	initialisation(&p, argc, argv, envp);	
-	
+		return (print_error(MSG_ERR_ARGC));		
+	initialisation(&p, argc, argv, envp);
+
 	p.seg_start = 1;
-	p.seg_end = get_seg_end(&p);	
-	run_segment(&p);	
+	set_next_seg_end(&p);
+		
+	while (p.seg_start < p.argc)
+		run_segment(&p);
+
+	// close pipe
 	
 	clean_program(&p);
-	
 	return(0);
+}
+
+/* ************************************************************************** */
+void initialisation(t_param *p, int argc, char **argv, char **envp)
+{
+	// ---------------------
+	p->stdin_origin = dup(STDIN_FILENO);
+	p->stdout_origin = dup(STDOUT_FILENO);
+	p->stderr_origin = dup(STDERR_FILENO);
+	// ---------------------
+	p->argc = argc;
+	p->argv = argv;
+	p->envp = envp;
+	// ---------------------
+	p->seg_start = 0;
+	p->seg_end = 0;
+	// ---------------------
+	p->path = NULL;
+	p->cmd = NULL;
+	p->array = NULL;
+	// ---------------------
+}
+
+/* ************************************************************************** */
+void clean_program(t_param *p)
+{
+	free_array(&p->array);
 }
 
 /* ************************************************************************** */

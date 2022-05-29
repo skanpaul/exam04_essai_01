@@ -36,7 +36,6 @@ Write a program that will behave like executing a shell command
 	5.3) a cd command will never be immediately followed or preceded by a "|"
 
 6) You don't need to manage any type of wildcards (*, ~ etc...)
-
 7) You don't need to manage environment variables ($BLA ...)
 
 8-M) If a system call, except execve and chdir, returns an error your program should

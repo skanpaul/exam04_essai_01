@@ -6,7 +6,7 @@
 /*   By: ski <ski@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:47:47 by ski               #+#    #+#             */
-/*   Updated: 2022/05/29 11:39:33 by ski              ###   ########.fr       */
+/*   Updated: 2022/05/29 14:43:11 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void build_array(t_param *p)
 	int i;
 	int size;
 
-	size = p->seg_end - p->seg_end + 2;	
+	size = p->seg_end - p->seg_start + 2;	
 	p->array = (char **)malloc(sizeof(char*) * size);
 
 	p->array[0] = ft_strdup(p->cmd);
 
 	i = 1;
-	while (i < size)
+	while (i < size - 1)
 	{
 		p->array[i] = ft_strdup(p->argv[i + p->seg_start]);
 		i++;		

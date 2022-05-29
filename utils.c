@@ -6,47 +6,37 @@
 /*   By: ski <ski@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 11:23:09 by ski               #+#    #+#             */
-/*   Updated: 2022/05/29 11:48:32 by ski              ###   ########.fr       */
+/*   Updated: 2022/05/29 14:15:06 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "microshell.h"
 
 /* ************************************************************************** */
-void initialisation(t_param *p, int argc, char **argv, char **envp)
+void set_next_seg_start(t_param *p)
 {
-	// ---------------------
-	p->argc = argc;
-	p->argv = argv;
-	p->envp = envp;
-	// ---------------------
-	p->seg_start = 0;
-	p->seg_end = 0;
-	// ---------------------
-	p->path = NULL;
-	p->cmd = NULL;
-	p->array = NULL;
-	// ---------------------
+	if (does_word_match(p->argv[p->seg_end + 1], "|")
+		|| does_word_match(p->argv[p->seg_end + 1], ";"))
+	{
+		p->seg_start = p->seg_end + 2;
+	}
+	else
+	{
+		p->seg_start = p->argc;		
+	}	
 }
 
-void clean_program(t_param *p)
-{
-	(void)p;
-	free_array(&p->array);
-}
 
 /* ************************************************************************** */
-bool does_word_match(char *src, char *hard_str)
-{
-	if( strncmp(src, hard_str, ft_strlen(hard_str) + 1) == 0)
-		return (true);
-	return (false);
-}
-
-/* ************************************************************************** */
-int get_seg_end(t_param *p)
+void set_next_seg_end(t_param *p)
 {
 	int i;
+
+	if (p->seg_start == p->argc)
+	{
+		p->seg_end = p->argc;
+		return ;
+	}
 
 	i = p->seg_start;
 	while (i < p->argc && !does_word_match(p->argv[i], "|")
@@ -54,7 +44,17 @@ int get_seg_end(t_param *p)
 	{
 		i++;
 	}
-	return (i - 1);	
+	p->seg_end = i - 1;	
+}
+
+/* ************************************************************************** */
+bool does_word_match(char *src, char *hard_str)
+{
+	if (!src)
+		return (false);
+	if( strncmp(src, hard_str, ft_strlen(hard_str) + 1) == 0)
+		return (true);
+	return (false);
 }
 
 /* ************************************************************************** */
@@ -71,7 +71,7 @@ char *extract_cmd(char *path)
 		return NULL;	
 
 	i = len;
-	while (path[i] != '/')
+	while (path[i] != '/' && i != 0)
 		i--;
 
 	cmd = ft_strdup(&path[i + 1]);
