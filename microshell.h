@@ -12,10 +12,12 @@
 
 #ifndef MICROSHELL_H
 # define MICROSHELL_H
+
 /* ************************************************************************** */
 # define MSG_ERR_ARGC		"error: no command to execute\n"
 # define MSG_ERR_CD_FAIL	"error: cd: cannot change directory to path_to_change\n"
-# define MSG_ERR_SYSCALL	"error: fatal\n" 
+# define MSG_ERR_SYSCALL	"error: fatal\n"
+# define MSG_ERR_EXECVE		"error: cannot execute " //executable_that_failed
 /* ************************************************************************** */
 # include "unistd.h"
 # include "stdio.h"
@@ -25,16 +27,19 @@
 # include <sys/types.h>
 # include <sys/wait.h> 
 /* ************************************************************************** */
+typedef struct s_ep
+{
+	char *path;
+	char **array;
+	char **envp;
+}	t_ep;
+
 typedef struct s_param
 {
 	// ---------------------
-	// int		argc;
-	// char	**argv;
-	// char	**envp;
-	// ---------------------
-	// int		fork_code;
-	// int		pid_child;
-	// int		status_child;
+	int		argc;
+	char	**argv;
+	char	**envp;
 	// ---------------------
 	char	*path;
 	char	*cmd;
@@ -43,8 +48,8 @@ typedef struct s_param
 }   t_param;
 
 /* ************************************************************************** */
-// void	initialisation(t_param *p, int argc, char **argv, char **envp);
-void	initialisation(t_param *p);
+void	initialisation(t_param *p, int argc, char **argv, char **envp);
+void	run_segment(t_param *p);
 void	clean_program(t_param *p);
 /* ************************************************************************** */
 bool 	is_fork_error(int fork_code);
@@ -61,6 +66,7 @@ char	*extract_cmd(char *path);
 char	**add_string_to_array(char **array, char *new_str);
 int		get_size_array(char **array);
 void	free_array(char ***array);
+void	print_array(char **array);
 /* ************************************************************************** */
 #endif
 

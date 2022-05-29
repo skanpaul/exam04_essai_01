@@ -6,7 +6,7 @@
 /*   By: ski <ski@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 11:09:07 by ski               #+#    #+#             */
-/*   Updated: 2022/05/29 10:15:34 by ski              ###   ########.fr       */
+/*   Updated: 2022/05/29 10:54:48 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,46 +19,34 @@
 #include "microshell.h"
 
 /* ************************************************************************** */
-static void print_end_parent(void);
+static void print_err_execve(t_param *p);
 static void print_start_child(char **array);
+static void print_end_parent(void);
 
 /* ************************************************************************** */
 int main (int argc, char **argv, char **envp)
 {
-	int		fc;
-	int		status;
+
 	t_param	p;
 
-	initialisation(&p);
-	// --------------------------------------------------	
 	if (argc < 2)
 		return (print_error(MSG_ERR_ARGC));
-
-	fc = fork();
-	if (is_fork_error(fc))
-		return (print_error(MSG_ERR_SYSCALL));		
-	// --------------------------------------------------
-	if (is_fork_child(fc))
-	{
-		p.path = argv[1]; // a effacer
-		p.cmd = extract_cmd(p.path);
-		p.array = add_string_to_array(p.array, p.cmd);
-
-		print_start_child(p.array);
-		execve(p.path, p.array, envp);		
-		print_error("!!! Failure-CHILD !!!\n");
-		exit(EXIT_FAILURE);
-	}
-	// --------------------------------------------------
-	if (is_fork_parent(fc))
-	{		
-		if(waitpid(fc, &status, 0) == -1)
-			return (print_error(MSG_ERR_SYSCALL));
-		print_end_parent();
-	}
-	// --------------------------------------------------
+		
+	initialisation(&p, argc, argv, envp);
+	
+	run_segment(&p);
+	
 	clean_program(&p);
+	
 	return(0);
+}
+
+/* ************************************************************************** */
+static void print_err_execve(t_param *p)
+{	
+	print_error(MSG_ERR_EXECVE);
+	print_error(p->path);
+	print_error("\n");
 }
 
 /* ************************************************************************** */
@@ -67,6 +55,7 @@ static void print_start_child(char **array)
 	print_error("\n");
 	print_error("---------------------------------------------\n");
 	print_error("Start-CHILD\n");
+	print_array(array);
 	print_error("---------------------------------------------\n");
 }
 

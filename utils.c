@@ -6,20 +6,20 @@
 /*   By: ski <ski@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 11:23:09 by ski               #+#    #+#             */
-/*   Updated: 2022/05/29 10:03:38 by ski              ###   ########.fr       */
+/*   Updated: 2022/05/29 10:50:49 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "microshell.h"
 
 /* ************************************************************************** */
-// void initialisation(t_param *p, int argc, char **argv, char **envp)
-void initialisation(t_param *p)
+void initialisation(t_param *p, int argc, char **argv, char **envp)
+// void initialisation(t_param *p)
 {
 	// ---------------------
-	// p->argc = argc;
-	// p->argv = argv;
-	// p->envp = envp;
+	p->argc = argc;
+	p->argv = argv;
+	p->envp = envp;
 	// ---------------------
 	p->path = NULL;
 	p->cmd = NULL;
