@@ -6,7 +6,7 @@
 /*   By: ski <ski@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 11:09:07 by ski               #+#    #+#             */
-/*   Updated: 2022/05/29 10:01:16 by ski              ###   ########.fr       */
+/*   Updated: 2022/05/29 10:15:34 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,32 @@
 #include "microshell.h"
 
 /* ************************************************************************** */
+static void print_end_parent(void);
+static void print_start_child(char **array);
+
+/* ************************************************************************** */
 int main (int argc, char **argv, char **envp)
 {
 	int		fc;
 	int		status;
 	t_param	p;
 
-	initialisation(&p, argc, argv, envp);
+	initialisation(&p);
 	// --------------------------------------------------	
 	if (argc < 2)
 		return (print_error(MSG_ERR_ARGC));
 
-	p.path = argv[1]; // a effacer
-	
-	fc = fork();	
-	// --------------------------------------------------
+	fc = fork();
 	if (is_fork_error(fc))
-		return (print_error(MSG_ERR_SYSCALL));
-		
+		return (print_error(MSG_ERR_SYSCALL));		
 	// --------------------------------------------------
 	if (is_fork_child(fc))
 	{
-		print_error("\n---------------------------------------------\n");
-		print_error("Start-CHILD\n");
+		p.path = argv[1]; // a effacer
 		p.cmd = extract_cmd(p.path);
-		print_error(p.cmd);
-		p.array = add_cmd_to_array(p.array, p.cmd);				
+		p.array = add_string_to_array(p.array, p.cmd);
+
+		print_start_child(p.array);
 		execve(p.path, p.array, envp);		
 		print_error("!!! Failure-CHILD !!!\n");
 		exit(EXIT_FAILURE);
@@ -54,12 +54,30 @@ int main (int argc, char **argv, char **envp)
 	{		
 		if(waitpid(fc, &status, 0) == -1)
 			return (print_error(MSG_ERR_SYSCALL));
-		print_error("---------------------------------------------\n");
-		print_error("End-PARENT\n\n");
+		print_end_parent();
 	}
 	// --------------------------------------------------
 	clean_program(&p);
 	return(0);
+}
+
+/* ************************************************************************** */
+static void print_start_child(char **array)
+{	
+	print_error("\n");
+	print_error("---------------------------------------------\n");
+	print_error("Start-CHILD\n");
+	print_error("---------------------------------------------\n");
+}
+
+/* ************************************************************************** */
+static void print_end_parent(void)
+{	
+	print_error("\n");
+	print_error("---------------------------------------------\n");
+	print_error("End-PARENT\n");
+	print_error("---------------------------------------------\n");
+	print_error("\n");
 }
 
 /* ************************************************************************** */
