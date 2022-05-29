@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   microshell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sorakann <sorakann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ski <ski@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 11:09:07 by ski               #+#    #+#             */
-/*   Updated: 2022/05/29 07:17:14 by sorakann         ###   ########.fr       */
+/*   Updated: 2022/05/29 08:56:59 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int main (int argc, char **argv, char **envp)
 {
 	t_param	p;
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
+	p.argc = argc;
+	p.argv = argv;
+	p.envp = envp;
 	initialisation(&p);
 
 	if (argc < 2)
