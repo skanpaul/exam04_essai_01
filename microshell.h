@@ -15,7 +15,7 @@
 
 /* ************************************************************************** */
 # define MSG_ERR_ARGC		"error: no command to execute\n"
-# define MSG_ERR_CD_FAIL	"error: cd: cannot change directory to path_to_change\n"
+# define MSG_ERR_CD_FAIL	"error: cd: cannot change directory" // path_to_change
 # define MSG_ERR_SYSCALL	"error: fatal\n"
 # define MSG_ERR_EXECVE		"error: cannot execute " //executable_that_failed
 /* ************************************************************************** */
@@ -84,8 +84,8 @@ void	print_err_execve(t_param *p);
 void	print_err_chdir(t_param *p);
 int		exit_syscal_err(t_param *p, int err_code);
 /* ************************************************************************** */
-void	print_start_child(char **array);
-void	print_end_parent(void);
+// void	print_start_child(char **array);
+// void	print_end_parent(void);
 /* ************************************************************************** */
 #endif
 
