@@ -61,9 +61,9 @@ void	build_array(t_param *p);
 int		run_segment(t_param *p);
 bool	does_word_match(char *src, char *hard_str);
 /* ************************************************************************** */
-bool 	is_fork_error(int fork_code);
-bool 	is_fork_child(int fork_code);
-bool 	is_fork_parent(int fork_code);
+bool 	is_fork_error(int fk);
+bool 	is_fork_child(int fk);
+bool 	is_fork_parent(int fk);
 /* ************************************************************************** */
 void	create_pipe(t_param *p);
 void	set_redirection_out(t_param *p);
