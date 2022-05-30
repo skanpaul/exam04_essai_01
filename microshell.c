@@ -6,7 +6,7 @@
 /*   By: sorakann <sorakann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 11:09:07 by ski               #+#    #+#             */
-/*   Updated: 2022/05/29 21:23:27 by sorakann         ###   ########.fr       */
+/*   Updated: 2022/05/30 06:20:23 by sorakann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void clean_program(t_param *p)
 	free_array(&p->array);
 	dup2(p->stdin_origin, STDIN_FILENO);
 	dup2(p->stdout_origin, STDOUT_FILENO);
-	exit(EXIT_FAILURE);	
+	// exit(EXIT_FAILURE);	
 }
 
 /* ************************************************************************** */
