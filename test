@@ -1,0 +1,16 @@
+echo step 00
+./microshell /bin/ls
+
+echo step 01
+./microshell /bin/ls -l -a "|" /bin/grep .gitignore
+
+
+
+
+
+
+
+
+
+
+
