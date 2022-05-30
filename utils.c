@@ -6,7 +6,7 @@
 /*   By: sorakann <sorakann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 11:23:09 by ski               #+#    #+#             */
-/*   Updated: 2022/05/29 21:31:37 by sorakann         ###   ########.fr       */
+/*   Updated: 2022/05/30 06:33:26 by sorakann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,17 @@ bool does_word_match(char *src, char *hard_str)
 /* ************************************************************************** */
 char *extract_cmd(char *path)
 {
-	int len;
+	int last_position;
 	int i;
 	char *cmd;
 
 	cmd = NULL;	
-	len = ft_strlen(path);
+	last_position = ft_strlen(path) - 1;
 
-	if (path[len] == '/')
+	if (path[last_position] == '/')
 		return NULL;	
 
-	i = len;
+	i = last_position;
 	while (i >= 0 && path[i] != '/')
 		i--;
 
