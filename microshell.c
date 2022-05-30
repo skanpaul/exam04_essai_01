@@ -6,7 +6,7 @@
 /*   By: sorakann <sorakann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 11:09:07 by ski               #+#    #+#             */
-/*   Updated: 2022/05/30 06:20:23 by sorakann         ###   ########.fr       */
+/*   Updated: 2022/05/30 06:27:12 by sorakann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int main (int argc, char **argv, char **envp)
 {
 	t_param	p;
 
-	if (argc < 2)
-		return (print_error(MSG_ERR_ARGC));		
 	initialisation(&p, argc, argv, envp);
 
 	p.seg_start = 1;
