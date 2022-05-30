@@ -6,7 +6,7 @@
 /*   By: ski <ski@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 11:10:22 by ski               #+#    #+#             */
-/*   Updated: 2022/05/29 15:58:14 by ski              ###   ########.fr       */
+/*   Updated: 2022/05/30 15:41:00 by ski              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ void print_err_execve(t_param *p)
 
 
 /* ************************************************************************** */
-void print_err_chdir(t_param *p)
+int print_err_chdir(t_param *p)
 {	
-	(void)p;
-	// print_error(MSG_ERR_EXECVE);
-	// print_error(p->path);
-	// print_error("\n");
+	print_error(MSG_ERR_CD_FAIL);
+	print_error(p->array[1]);
+	print_error("\n");
+	return (1);
 }
 
 /* ************************************************************************** */
